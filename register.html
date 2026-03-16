@@ -1,0 +1,28 @@
+<form action="/register" method="POST" enctype="multipart/form-data">
+  <input name="name" placeholder="Name">
+  <input name="mobile" placeholder="Mobile">
+  <input name="aadhaar" placeholder="Aadhaar">
+  <input name="pan" placeholder="PAN">
+  <input name="bank_account" placeholder="Bank Account">
+  <input name="ifsc" placeholder="IFSC">
+  <input name="aadhaar_image" type="file" accept="image/*" required>
+  <input type="hidden" name="live_photo" id="live_photo_data">
+  <video id="video" autoplay></video>
+  <canvas id="canvas" style="display:none;"></canvas>
+  <button type="button" onclick="capture()">Capture Face</button>
+  <button type="submit">Register</button>
+</form>
+
+<script>
+navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+  document.getElementById('video').srcObject = stream;
+});
+function capture() {
+  let canvas = document.getElementById('canvas');
+  let video = document.getElementById('video');
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  canvas.getContext('2d').drawImage(video, 0, 0);
+  document.getElementById('live_photo_data').value = canvas.toDataURL('image/jpeg');
+}
+</script>

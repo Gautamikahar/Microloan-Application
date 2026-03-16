@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Loans</title>
+</head>
+<body>
+    <h2>My Loan Applications</h2>
+    {% if loans %}
+        <table border="1">
+            <tr>
+                <th>Amount</th>
+                <th>Purpose</th>
+                <th>Status</th>
+                <th>Applied On</th>
+            </tr>
+            {% for loan in loans %}
+                <tr>
+                    <td>{{ loan.amount }}</td>
+                    <td>{{ loan.purpose }}</td>
+                    <td>{{ loan.status }}</td>
+                    <td>{{ loan.created_at.strftime('%Y-%m-%d') }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>You have not applied for any loans yet.</p>
+    {% endif %}
+    <br>
+    <a href="/dashboard">Back to Dashboard</a>
+</body>
+</html>
